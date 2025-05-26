@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kerajaan Samudra Pasai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f7f2fa;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      position: relative;
+      height: 280px;
+      color: white;
+      text-shadow: 2px 2px 5px black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(270deg, #800080, #a64ca6, #800080);
+      background-size: 600% 600%;
+      animation: gradientShift 15s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      z-index: 2;
+      position: relative;
+    }
+    header p {
+      font-size: 1.2rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Animated floating circles on header */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.15);
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-name: floatUp;
+    }
+    @keyframes floatUp {
+      0% {transform: translateY(100%);}
+      100% {transform: translateY(-150%);}
+    }
+    /* different sizes and speeds */
+    .circle:nth-child(1) {
+      width: 40px;
+      height: 40px;
+      left: 10%;
+      animation-duration: 25s;
+      animation-delay: 0s;
+    }
+    .circle:nth-child(2) {
+      width: 20px;
+      height: 20px;
+      left: 25%;
+      animation-duration: 18s;
+      animation-delay: 3s;
+    }
+    .circle:nth-child(3) {
+      width: 30px;
+      height: 30px;
+      left: 45%;
+      animation-duration: 20s;
+      animation-delay: 7s;
+    }
+    .circle:nth-child(4) {
+      width: 50px;
+      height: 50px;
+      left: 70%;
+      animation-duration: 22s;
+      animation-delay: 2s;
+    }
+    .circle:nth-child(5) {
+      width: 15px;
+      height: 15px;
+      left: 85%;
+      animation-duration: 15s;
+      animation-delay: 5s;
+    }
+
+    nav {
+      background-color: #800080;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    nav button:hover, nav button.active {
+      background-color: #d9b3ff;
+      color: #4b0082;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      min-height: 400px;
+      position: relative;
+    }
+    section.content-section {
+      opacity: 0;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    section.content-section.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+    }
+    h2 {
+      color: #800080;
+      border-left: 6px solid #800080;
+      padding-left: 10px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    p, ul {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    ul {
+      list-style: inside disc;
+      margin-left: 10px;
+    }
+    footer {
+      background-color: #800080;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+      font-weight: 500;
+    }
+    /* Galeri grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+    /* Audio control button */
+    #audio-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #800080;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(128,0,128,0.7);
+      z-index: 1500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    #audio-control:hover {
+      background-color: #a64ca6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Kerajaan Samudra Pasai</h1>
+    <p>Kerajaan Islam Pertama di Nusantara</p>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </header>
+
+  <nav>
+    <button id="nav-beranda" class="active" aria-controls="beranda">Beranda</button>
+    <button id="nav-sejarah" aria-controls="sejarah">Sejarah</button>
+    <button id="nav-galeri" aria-controls="galeri">Galeri</button>
+    <button id="nav-raja" aria-controls="raja">Raja-Raja</button>
+    <button id="nav-peninggalan" aria-controls="peninggalan">Peninggalan</button>
+    <button id="nav-tentang" aria-controls="tentang">Tentang</button>
+  </nav>
+  
+
+  <main>
+    <section id="beranda" class="content-section active" role="region" aria-labelledby="nav-beranda">
+      <h2>Selamat Datang di Kerajaan Samudra Pasai</h2>
+      <p>Samudra Pasai adalah kerajaan Islam pertama di Nusantara yang berdiri pada abad ke-13. Terletak di pesisir utara Sumatra, kerajaan ini menjadi pusat perdagangan dan penyebaran agama Islam di Asia Tenggara.</p>
+      <p>Jelajahi berbagai informasi menarik melalui menu di atas untuk mengetahui sejarah, raja-raja, peninggalan, serta melihat galeri gambar terkait kerajaan ini.</p>
+    </section>
+
+    <section id="sejarah" class="content-section active" role="region" aria-labelledby="nav-sejarah">
+        <h2>Sejarah Kerajaan Samudra Pasai</h2>
+        <p>Kerajaan Samudra Pasai merupakan kerajaan Islam pertama di Nusantara yang berdiri pada abad ke-13 di pesisir utara Aceh. Kerajaan ini didirikan oleh <strong>Sultan Malik Al Saleh</strong> sekitar tahun 1267 M.</p>
+        <p>Letaknya yang strategis di jalur perdagangan Selat Malaka menjadikan Samudra Pasai sebagai pusat perdagangan dan penyebaran agama Islam yang penting di Asia Tenggara. Kerajaan ini menjalin hubungan dagang dengan berbagai bangsa, termasuk Gujarat, Arab, Cina, dan Eropa.</p>
+        <p>Sultan-sultan Samudra Pasai dikenal sebagai pelindung dan penyebar ajaran Islam. Mereka mendorong penerjemahan kitab-kitab ke dalam bahasa Melayu dan membangun infrastruktur seperti masjid dan lembaga pendidikan Islam.</p>
+        <p>Pada abad ke-15, kerajaan ini mulai mengalami kemunduran akibat serangan dari Majapahit dan konflik internal, hingga akhirnya dikuasai oleh Kesultanan Aceh.</p>
+      </section>
+
+    <section id="galeri" class="content-section" role="region" aria-labelledby="nav-galeri">
+      <h2>Galeri Gambar</h2>
+      <div class="gallery">
+        <img src="data:image/jpeg;base64,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" alt="Makam Sultan Iskandar Muzahiddin" />
+        <img src="https://assets.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/p1/10/2023/08/15/6-699861709.png" alt="Masjid Lama Samudra Pasai" />
+        <img src="https://lh3.googleusercontent.com/pw/AIL4fc-TyLRsEFxlJ3IdszuydFUVglSCTJLbgViypUN9VwwygOcQxzMeSL-373iaISrwTwJVbOG5dDMcEMTdma5DHpOHkoUSj8p0SIbEgUIxHoU24bysKVM=w2400" alt="Peta Kerajaan Samudra Pasai" />
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAvfGwhr6HSolENFFY9UJkugNFMFNtDTvdpN4qx5m7jkwj0DefXsseK1-twi8jSstdNKhF9mP0qrov2PAiKIhSrE72S3M2ZtH1bH7vApsnZwSj72tA6ntYcK8XLOX6aSQ1l_J9f_bS6gI/s1600/raja+pasai.jpg" alt="Sejarah Samudra Pasai" />
+      </div>
+    </section>
+
+    <section id="raja" class="content-section" role="region" aria-labelledby="nav-raja">
+      <h2>Raja-Raja Samudra Pasai</h2>
+      <ul>
+        <li><strong>Sultan Malik Al Saleh</strong> (1297-1326) - Pendiri kerajaan dan raja pertama yang memeluk Islam.</li>
+        <li><strong>Sultan Muhammad Malik Az-Zahir</strong> (1326-1345) - Memperluas wilayah dan memperkuat agama Islam.</li>
+        <li><strong>Sultan Zainal Abidin</strong> (1345-1362) - Memperkuat hubungan dagang dengan Cina dan negara-negara lain.</li>
+        <li><strong>Sultan Iskandar Malik Muzahiddin</strong> (1362-1398) - Raja terakhir sebelum kerajaan mulai mengalami kemunduran.</li>
+      </ul>
+    </section>
+
+    <section id="peninggalan" class="content-section" role="region" aria-labelledby="nav-peninggalan">
+      <h2>Peninggalan Kerajaan Samudra Pasai</h2>
+      <ul>
+        <li><strong>Masjid Samudra Pasai</strong> - Masjid tertua di Nusantara yang masih berdiri dan digunakan hingga sekarang.</li>
+        <li><strong>Makam Sultan Iskandar Muzahiddin</strong> - Makam raja terakhir kerajaan.</li>
+        <li><strong>Kitab dan Manuskrip Islam</strong> - Bukti awal penyebaran ilmu agama Islam di Nusantara.</li>
+        <li><strong>Artefak Perdagangan</strong> - Barang-barang dari perdagangan dengan Cina, Timur Tengah, dan India.</li>
+      </ul>
+    </section>
+
+    <section id="tentang" class="content-section" role="region" aria-labelledby="nav-tentang">
+        <h2>Tentang Pembuat</h2>
+        <p>Website ini dibuat oleh <strong>Matthew</strong> sebagai proyek tugas untuk mata pelajaran <strong>Informatika, Sejarah, dan Bahasa Indonesia</strong> di <strong>Kelas X-4</strong>, nomor absen <strong>17</strong>.</p>
+        <p>Tujuan dari website ini adalah untuk menyampaikan informasi sejarah Kerajaan Samudra Pasai secara interaktif dan menarik menggunakan media digital.</p>
+        <p>Semoga informasi ini bermanfaat dan dapat memperluas wawasan mengenai sejarah Nusantara, khususnya dalam mengenal peran penting Kerajaan Samudra Pasai sebagai kerajaan Islam pertama di Indonesia.</p>
+      </section>
+      
+  </main>
+
+  <footer>
+    &copy; 2025 Kerajaan Samudra Pasai. Dibuat oleh Matthew.
+
+
+ 
+</script>
+
+<div style="display: none;">
+    <iframe 
+      id="yt-audio"
+      width="0" height="0"
+      src="https://www.youtube.com/embed/L0KdfUJQBNg?autoplay=1&loop=1&playlist=L0KdfUJQBNg&controls=0&mute=0"
+      frameborder="0"
+      allow="autoplay"
+    ></iframe>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('nav button');
+    const sections = document.querySelectorAll('.content-section');
+  
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Hapus class aktif dari semua tombol
+        buttons.forEach(btn => btn.classList.remove('active'));
+  
+        // Tambahkan class aktif ke tombol yang diklik
+        button.classList.add('active');
+  
+        // Ambil ID section tujuan dari atribut aria-controls
+        const targetId = button.getAttribute('aria-controls');
+  
+        // Tampilkan hanya section yang sesuai
+        sections.forEach(section => {
+          section.classList.toggle('active', section.id === targetId);
+        });
+  
+        // Scroll ke atas
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script> 
+</body>
+</html>
